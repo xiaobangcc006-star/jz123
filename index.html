@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <meta name="format-detection" content="telephone=no">
   <link rel="icon" href="data:,">
-  <title>查检表</title>
+  <title>急救小组查检表</title>
   <style>
     :root {
       --sky: #d9f2fc;
@@ -39,38 +39,39 @@
     button, input, textarea, select { font: inherit; }
     button { -webkit-tap-highlight-color: transparent; }
     input, textarea, select { font-size: 16px; }
-    .app-shell { min-height: 100vh; padding-bottom: calc(86px + env(safe-area-inset-bottom)); }
+    .app-shell { min-height: 100vh; padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
     .topbar {
       position: sticky;
       top: 0;
       z-index: 10;
-      padding: max(14px, env(safe-area-inset-top)) 16px 14px;
+      padding: max(7px, env(safe-area-inset-top)) 10px 8px;
       background: linear-gradient(135deg, #eefaff, #d9f2fc);
       box-shadow: 0 2px 12px rgba(25, 103, 143, .16);
     }
     .topbar-inner { max-width: 760px; margin: 0 auto; text-align: center; }
-    h1 { margin: 0; color: #2c5870; font-size: clamp(21px, 6vw, 30px); line-height: 1.25; text-align: center; }
+    h1 { margin: 0; color: #2c5870; font-size: clamp(18px, 5vw, 25px); line-height: 1.2; text-align: center; overflow-wrap: anywhere; }
+    .topbar-select { max-width: 560px; margin: 5px auto 0; }
+    .topbar-select select { width: 100%; min-height: 36px; padding: 5px 30px 5px 9px; color: var(--ink); background: rgba(255,255,255,.82); border: 1px solid #b9deeb; border-radius: 9px; outline: none; }
 
-    main { max-width: 760px; margin: 0 auto; padding: 14px 12px 0; }
+    main { max-width: 760px; margin: 0 auto; padding: 8px 10px 0; }
     .section-card {
-      margin-bottom: 12px;
-      padding: 14px;
+      margin-bottom: 8px;
+      padding: 10px;
       background: var(--panel);
       border: 1px solid #d9eaf3;
       border-radius: 16px;
       box-shadow: var(--shadow);
     }
-    .section-title { margin: 0 0 10px; font-size: 18px; line-height: 1.35; }
-    .section-note { margin: -4px 0 12px; color: var(--muted); font-size: 13px; }
-    .version-mark { display: inline-block; margin-top: 5px; color: #6f94a6; font-size: 11px; font-weight: 600; }
+    .section-title { margin: 0 0 7px; font-size: 17px; line-height: 1.3; }
+    .section-note { margin: -3px 0 8px; color: var(--muted); font-size: 12px; }
 
-    .form-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
     .field { min-width: 0; }
-    .field label { display: block; margin: 0 0 5px; color: var(--muted); font-size: 13px; font-weight: 700; }
+    .field label { display: block; margin: 0 0 3px; color: var(--muted); font-size: 12px; font-weight: 700; }
     .field input, .field textarea, .field select {
       width: 100%;
-      min-height: 44px;
-      padding: 9px 10px;
+      min-height: 39px;
+      padding: 6px 8px;
       color: var(--ink);
       background: #fbfdff;
       border: 1px solid var(--line);
@@ -81,14 +82,14 @@
     .field input:focus, .field textarea:focus, .field select:focus { border-color: #91cfe4; box-shadow: 0 0 0 3px rgba(145, 207, 228, .18); }
     .required { color: var(--bad); }
 
-    .items-list { display: grid; gap: 10px; }
-    .item-card { padding: 13px; background: #fcfeff; border: 1px solid #dceef5; border-radius: 14px; }
-    .item-head { display: flex; align-items: flex-start; gap: 9px; }
-    .item-no { flex: 0 0 30px; display: grid; place-items: center; min-height: 30px; padding: 2px 5px; color: #125c85; background: #dff4ff; border-radius: 9px; font-weight: 800; }
-    .item-name { min-width: 0; flex: 1; margin: 2px 0 0; font-size: 16px; font-weight: 800; line-height: 1.4; overflow-wrap: anywhere; }
-    .item-standard { margin: 9px 0 4px; color: var(--ink); font-size: 14px; overflow-wrap: anywhere; }
-    .item-method { margin: 0; color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
-    .items-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: -3px 0 12px; }
+    .items-list { display: grid; gap: 7px; }
+    .item-card { padding: 9px; background: #fcfeff; border: 1px solid #dceef5; border-radius: 11px; }
+    .item-head { display: flex; align-items: flex-start; gap: 7px; }
+    .item-no { flex: 0 0 27px; display: grid; place-items: center; min-height: 27px; padding: 1px 4px; color: #125c85; background: #dff4ff; border-radius: 8px; font-weight: 800; }
+    .item-name { min-width: 0; flex: 1; margin: 1px 0 0; font-size: 15px; font-weight: 800; line-height: 1.3; overflow-wrap: anywhere; }
+    .item-standard { margin: 6px 0 2px; color: var(--ink); font-size: 13px; line-height: 1.4; overflow-wrap: anywhere; }
+    .item-method { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.35; overflow-wrap: anywhere; }
+    .items-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: -2px 0 8px; }
     .status-badge, .progress-badge { display: inline-flex; align-items: center; min-height: 30px; padding: 4px 9px; border-radius: 999px; font-size: 12px; font-weight: 800; }
     .status-badge { color: #28657f; background: #e6f7fd; border: 1px solid #c6e9f4; }
     .status-badge[data-status="填写中"] { color: #88632c; background: #fff6df; border-color: #f0ddb0; }
@@ -101,16 +102,16 @@
     .item-card.is-highlighted { border-color: #86cfe7; box-shadow: 0 0 0 3px rgba(134, 207, 231, .26); animation: itemPulse 1.2s ease-out; }
     .empty-filter { padding: 16px 12px; color: var(--muted); background: #f8fdff; border: 1px dashed #c8e4ee; border-radius: 12px; text-align: center; }
     @keyframes itemPulse { 0% { background: #e8f9ff; } 100% { background: #fcfeff; } }
-    .response-row { display: grid; grid-template-columns: minmax(140px, 1fr) minmax(0, 1.25fr); gap: 9px; align-items: center; margin-top: 11px; }
-    .choice-group { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .response-row { display: grid; grid-template-columns: minmax(124px, .9fr) minmax(0, 1.1fr); gap: 6px; align-items: center; margin-top: 7px; }
+    .choice-group { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
     .choice { position: relative; min-width: 0; }
     .choice input { position: absolute; opacity: 0; pointer-events: none; }
-    .choice span { display: block; min-height: 43px; padding: 9px 5px; text-align: center; background: #fff; border: 1px solid var(--line); border-radius: 10px; font-weight: 700; }
+    .choice span { display: block; min-height: 40px; padding: 7px 3px; text-align: center; background: #fff; border: 1px solid var(--line); border-radius: 9px; font-size: 14px; font-weight: 700; }
     .choice input:checked + span { color: #fff; border-color: transparent; }
     .choice input[value="合格"]:checked + span { background: var(--ok); }
     .choice input[value="不合格"]:checked + span { background: var(--bad); }
     .choice input:focus-visible + span { outline: 3px solid rgba(22, 121, 180, .3); }
-    .remark-input { width: 100%; min-height: 43px; padding: 9px 10px; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 10px; outline: none; }
+    .remark-input { width: 100%; min-height: 40px; padding: 7px 8px; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 9px; outline: none; }
     .remark-input:focus { border-color: #91cfe4; box-shadow: 0 0 0 3px rgba(145, 207, 228, .18); }
 
     .summary-box { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; padding: 11px 12px; color: #1c5876; background: var(--sky-pale); border: 1px solid #c7eaf9; border-radius: 12px; }
@@ -119,9 +120,9 @@
     .hint { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
     .error-list { margin: 9px 0 0; padding-left: 20px; color: var(--bad); font-size: 13px; }
 
-    .bottom-actions { position: fixed; right: 0; bottom: 0; left: 0; z-index: 20; padding: 9px 12px max(9px, env(safe-area-inset-bottom)); background: rgba(255, 255, 255, .96); border-top: 1px solid #cfe3ee; box-shadow: 0 -5px 20px rgba(37, 102, 132, .13); backdrop-filter: blur(10px); }
-    .actions-inner { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; max-width: 760px; margin: 0 auto; }
-    .action-btn { min-width: 0; min-height: 44px; padding: 8px 3px; color: #285b73; background: var(--sky); border: 1px solid #a9ddeb; border-radius: 10px; font-size: 13px; font-weight: 800; cursor: pointer; }
+    .bottom-actions { position: fixed; right: 0; bottom: 0; left: 0; z-index: 20; padding: 5px 8px max(5px, env(safe-area-inset-bottom)); background: rgba(255, 255, 255, .96); border-top: 1px solid #cfe3ee; box-shadow: 0 -4px 14px rgba(37, 102, 132, .12); backdrop-filter: blur(10px); }
+    .actions-inner { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; max-width: 760px; margin: 0 auto; }
+    .action-btn { min-width: 0; min-height: 40px; padding: 6px 2px; color: #285b73; background: var(--sky); border: 1px solid #a9ddeb; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; }
     .action-btn:active { transform: translateY(1px); filter: brightness(.96); }
     .action-btn.primary { color: #285b73; background: #c7ebf7; border-color: #9fd7e9; }
     .action-btn.danger { color: #8e2929; background: #ffe9e9; border-color: #f2bdbd; }
@@ -152,14 +153,14 @@
     .preview-meta span { min-width: 0; overflow-wrap: anywhere; }
     .preview-rate { margin-top: 10px; font-family: SimSun, "Songti SC", serif; font-size: 12px; }
     .preview-version { margin-top: 7px; color: #666; font-family: SimSun, "Songti SC", serif; font-size: 10px; text-align: right; }
-    .modal-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 10px 12px; border-top: 1px solid #e0e9ee; }
-    .modal-actions .action-btn { flex: 0 0 auto; min-width: 110px; }
+    .modal-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; padding: 8px 10px; border-top: 1px solid #e0e9ee; }
+    .modal-actions .action-btn { flex: 1 1 120px; min-width: 105px; }
 
     @media (max-width: 520px) {
-      .form-grid { grid-template-columns: 1fr; }
-      .response-row { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .response-row { grid-template-columns: minmax(118px, .9fr) minmax(0, 1.1fr); }
       .actions-inner { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-      .action-btn { font-size: 12px; }
+      .action-btn { font-size: 11px; }
       .preview-sheet { padding: 12px 7px 16px; }
       .preview-table { font-size: 9px; }
       .preview-table th, .preview-table td { padding: 4px 2px; }
@@ -194,20 +195,14 @@
   <div class="app-shell">
     <header class="topbar">
       <div class="topbar-inner">
-        <h1>查检表</h1>
-        <span class="version-mark">系统版本：v1.1（2026-08-13）</span>
+        <h1 id="pageTitle">查检表</h1>
+        <div class="topbar-select">
+          <select id="formSelect" aria-label="选择查检表"></select>
+        </div>
       </div>
     </header>
 
     <main>
-      <section class="section-card">
-        <h2 class="section-title">选择查检表</h2>
-        <div class="field">
-          <label for="formSelect">查检表类型</label>
-          <select id="formSelect" aria-label="选择查检表"></select>
-        </div>
-      </section>
-
       <section class="section-card">
         <h2 class="section-title">基本信息</h2>
         <div class="form-grid">
@@ -259,7 +254,8 @@
       <div class="preview-wrap"><div class="preview-sheet" id="previewSheet"></div></div>
       <div class="modal-actions">
         <button class="action-btn" id="backEditBtn" type="button">返回修改</button>
-        <button class="action-btn" id="previewPdfBtn" type="button">打印 / 保存 PDF</button>
+        <button class="action-btn" id="previewPdfBtn" type="button">导出 PDF</button>
+        <button class="action-btn" id="sharePdfBtn" type="button">分享 PDF</button>
         <button class="action-btn primary" id="previewWordBtn" type="button">下载 Word</button>
         <button class="action-btn" id="shareWordBtn" type="button">分享 Word</button>
       </div>
@@ -273,7 +269,6 @@
       'use strict';
 
       const STORAGE_KEY = 'emergency-checklist-v1';
-      const VERSION_LABEL = '系统版本：v1.1（2026-08-13）';
       function getLocalDate() {
         const date = new Date();
         const pad = value => String(value).padStart(2, '0');
@@ -454,6 +449,7 @@
       function renderForm() {
         const form = activeForm();
         const data = activeData();
+        $('pageTitle').textContent = form.title;
         $('itemsTitle').textContent = `${form.title} · ${form.items.length}项`;
         $('inspector').value = data.inspector;
         $('reviewer').value = data.reviewer;
@@ -560,29 +556,264 @@
       function closePreview() { $('previewModal').classList.remove('open'); document.body.style.overflow = ''; }
 
       function buildPreviewHtml() {
-        const form = activeForm();
-        const data = activeData();
-        const passed = data.items.filter(item => item.result === '合格').length;
-        const complete = data.items.every(isAnswered);
-        const rate = complete ? ((passed / form.items.length) * 100).toFixed(1).replace(/\.0$/, '') : '';
-        const rows = form.items.map((item, index) => {
-          const row = data.items[index];
-          return `<tr><td class="center">${item.no}</td><td>${escapeHtml(item.checkItem)}</td><td>${escapeHtml(item.standard)}</td><td>${escapeHtml(item.method)}</td><td class="center">${row.result === '合格' ? '✓' : ''}</td><td class="center">${row.result === '不合格' ? '✓' : ''}</td><td>${escapeHtml(row.remark || '')}</td></tr>`;
+        const model = getDocumentModel();
+        const rows = model.rows.map(row => {
+          return `<tr><td class="center">${row.no}</td><td>${escapeHtml(row.checkItem)}</td><td>${escapeHtml(row.standard)}</td><td>${escapeHtml(row.method)}</td><td class="center">${row.result === '合格' ? '✓' : ''}</td><td class="center">${row.result === '不合格' ? '✓' : ''}</td><td>${escapeHtml(row.remark || '')}</td></tr>`;
         }).join('');
-        return `<h1 class="preview-title">${escapeHtml(form.title)}</h1>
+        return `<h1 class="preview-title">${escapeHtml(model.title)}</h1>
           <table class="preview-table"><colgroup><col class="no"><col class="item"><col class="standard"><col class="method"><col class="result"><col class="result"><col class="remark"></colgroup>
           <thead><tr><th>序号</th><th>查检项目</th><th>查检标准</th><th>方法</th><th>合格</th><th>不合格</th><th>备注</th></tr></thead><tbody>${rows}</tbody></table>
-          <div class="preview-meta"><span>查检人：${escapeHtml(data.inspector)}</span><span>查检日期：${escapeHtml(data.checkDate)}</span><span>护士长复核：${escapeHtml(data.reviewer)}</span><span>导出日期：${escapeHtml(today)}</span></div>
-          <div class="preview-rate">合格率=合格项目数/总检查项目数×100% = ${complete ? `${passed}/${form.items.length}×100% = ${rate}%` : '待完成'}</div>
-          <div class="preview-version">${VERSION_LABEL}</div>`;
+          <div class="preview-meta"><span>查检人：${escapeHtml(model.inspector)}</span><span>查检日期：${escapeHtml(model.checkDate)}</span><span>护士长复核：${escapeHtml(model.reviewer)}</span></div>
+          <div class="preview-rate">合格率=合格项目数/总检查项目数×100% = ${model.rateText}</div>`;
       }
 
-      function printPdf() {
+      function getDocumentModel() {
+        const form = activeForm();
+        const data = activeData();
+        const rows = form.items.map((item, index) => ({
+          no: item.no,
+          checkItem: item.checkItem,
+          standard: item.standard,
+          method: item.method,
+          result: data.items[index]?.result || '',
+          remark: data.items[index]?.remark || ''
+        }));
+        const passed = rows.filter(row => row.result === '合格').length;
+        const complete = rows.every(isAnswered);
+        const rate = complete ? `${((passed / rows.length) * 100).toFixed(1).replace(/\.0$/, '')}%` : '待完成';
+        return {
+          title: form.title,
+          rows,
+          inspector: data.inspector || '',
+          checkDate: data.checkDate || '',
+          reviewer: data.reviewer || '',
+          passed,
+          complete,
+          rateText: complete ? `${passed}/${rows.length}×100% = ${rate}` : '待完成'
+        };
+      }
+
+      function canvasWrapText(context, value, maxWidth) {
+        const text = String(value ?? '');
+        const lines = [];
+        text.split('\n').forEach(paragraph => {
+          let line = '';
+          for (const character of paragraph || ' ') {
+            const next = line + character;
+            if (line && context.measureText(next).width > maxWidth) {
+              lines.push(line);
+              line = character;
+            } else {
+              line = next;
+            }
+          }
+          lines.push(line || '');
+        });
+        return lines;
+      }
+
+      function createPdfPages(model) {
+        const pageWidth = 1240;
+        const pageHeight = 1754;
+        const margin = 56;
+        const tableWidth = pageWidth - margin * 2;
+        const widths = [56, 168, 385, 177, 76, 76, 202];
+        const lineHeight = 25;
+        const cellPadX = 7;
+        const cellPadY = 8;
+        const pages = [];
+        let canvas;
+        let context;
+        let y;
+        let firstPage;
+
+        function newPage() {
+          canvas = document.createElement('canvas');
+          canvas.width = pageWidth;
+          canvas.height = pageHeight;
+          context = canvas.getContext('2d');
+          context.fillStyle = '#ffffff';
+          context.fillRect(0, 0, pageWidth, pageHeight);
+          context.fillStyle = '#111111';
+          context.textBaseline = 'top';
+          context.font = 'bold 30px SimSun, Songti SC, serif';
+          context.textAlign = 'center';
+          context.fillText(model.title, pageWidth / 2, 42);
+          context.textAlign = 'left';
+          y = 102;
+          firstPage = pages.length === 0;
+          drawHeader();
+        }
+
+        function drawHeader() {
+          const headers = ['序号', '查检项目', '查检标准', '方法', '合格', '不合格', '备注'];
+          context.font = 'bold 17px SimSun, Songti SC, serif';
+          let x = margin;
+          context.fillStyle = '#f2f2f2';
+          context.fillRect(x, y, tableWidth, 40);
+          context.fillStyle = '#111111';
+          headers.forEach((header, index) => {
+            context.strokeStyle = '#111111';
+            context.lineWidth = 1;
+            context.strokeRect(x, y, widths[index], 40);
+            context.textAlign = index === 0 || index === 4 || index === 5 ? 'center' : 'left';
+            const lines = canvasWrapText(context, header, widths[index] - cellPadX * 2);
+            context.fillText(lines[0] || '', index === 0 || index === 4 || index === 5 ? x + widths[index] / 2 : x + cellPadX, y + 10);
+            x += widths[index];
+          });
+          context.textAlign = 'left';
+          y += 40;
+        }
+
+        function drawRow(row) {
+          context.font = '16px SimSun, Songti SC, serif';
+          const values = [row.no, row.checkItem, row.standard, row.method, row.result === '合格' ? '✓' : '', row.result === '不合格' ? '✓' : '', row.remark || ''];
+          const wrapped = values.map((value, index) => canvasWrapText(context, value, widths[index] - cellPadX * 2));
+          const rowHeight = Math.max(42, Math.max(...wrapped.map(lines => lines.length)) * lineHeight + cellPadY * 2);
+          if (y + rowHeight > pageHeight - margin - 120) {
+            pages.push(canvas);
+            newPage();
+          }
+          let x = margin;
+          values.forEach((value, index) => {
+            context.strokeStyle = '#111111';
+            context.lineWidth = 1;
+            context.strokeRect(x, y, widths[index], rowHeight);
+            context.fillStyle = '#111111';
+            context.textAlign = index === 0 || index === 4 || index === 5 ? 'center' : 'left';
+            const lines = wrapped[index];
+            lines.forEach((line, lineIndex) => {
+              const textX = index === 0 || index === 4 || index === 5 ? x + widths[index] / 2 : x + cellPadX;
+              context.fillText(line, textX, y + cellPadY + lineIndex * lineHeight);
+            });
+            x += widths[index];
+          });
+          context.textAlign = 'left';
+          y += rowHeight;
+        }
+
+        newPage();
+        model.rows.forEach(drawRow);
+        const infoLines = [
+          `查检人：${model.inspector}`,
+          `查检日期：${model.checkDate}`,
+          `护士长复核：${model.reviewer}`,
+          `合格率=合格项目数/总检查项目数×100% = ${model.rateText}`
+        ];
+        context.font = '18px SimSun, Songti SC, serif';
+        const infoHeight = 30 + infoLines.length * 28;
+        if (y + infoHeight > pageHeight - margin) {
+          pages.push(canvas);
+          newPage();
+        }
+        context.fillStyle = '#111111';
+        infoLines.forEach((line, index) => context.fillText(line, margin, y + 16 + index * 28));
+        pages.push(canvas);
+        return pages;
+      }
+
+      function base64ToBytes(dataUrl) {
+        const base64 = dataUrl.split(',')[1] || '';
+        const binary = atob(base64);
+        const bytes = new Uint8Array(binary.length);
+        for (let index = 0; index < binary.length; index += 1) bytes[index] = binary.charCodeAt(index);
+        return bytes;
+      }
+
+      function pdfObjectBytes(value) {
+        return new TextEncoder().encode(value);
+      }
+
+      function buildImagePdf(pages) {
+        const objects = [];
+        const pageIds = pages.map((_, index) => 3 + index * 3);
+        objects[1] = pdfObjectBytes('<< /Type /Catalog /Pages 2 0 R >>');
+        objects[2] = pdfObjectBytes(`<< /Type /Pages /Kids [${pageIds.map(id => `${id} 0 R`).join(' ')}] /Count ${pages.length} >>`);
+        pages.forEach((canvas, index) => {
+          const pageId = 3 + index * 3;
+          const contentId = pageId + 1;
+          const imageId = pageId + 2;
+          const jpeg = base64ToBytes(canvas.toDataURL('image/jpeg', 0.92));
+          objects[pageId] = pdfObjectBytes(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /XObject << /Im0 ${imageId} 0 R >> >> /Contents ${contentId} 0 R >>`);
+          const content = 'q 595.28 0 0 841.89 0 0 cm /Im0 Do Q';
+          objects[contentId] = pdfObjectBytes(`<< /Length ${content.length} >>\nstream\n${content}\nendstream`);
+          objects[imageId] = { binary: jpeg, prefix: `<< /Type /XObject /Subtype /Image /Width ${canvas.width} /Height ${canvas.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpeg.length} >>\nstream\n`, suffix: '\nendstream' };
+        });
+        const parts = [pdfObjectBytes('%PDF-1.4\n%\xff\xff\xff\xff\n')];
+        const offsets = [0];
+        let total = parts[0].length;
+        for (let id = 1; id < objects.length; id += 1) {
+          const object = objects[id];
+          const body = object.binary ? concatBytes([pdfObjectBytes(object.prefix), object.binary, pdfObjectBytes(object.suffix)]) : object;
+          const header = pdfObjectBytes(`${id} 0 obj\n`);
+          const footer = pdfObjectBytes('\nendobj\n');
+          offsets[id] = total;
+          parts.push(header, body, footer);
+          total += header.length + body.length + footer.length;
+        }
+        const xrefOffset = total;
+        let xref = `xref\n0 ${objects.length}\n0000000000 65535 f \n`;
+        for (let id = 1; id < objects.length; id += 1) xref += `${String(offsets[id]).padStart(10, '0')} 00000 n \n`;
+        xref += `trailer\n<< /Size ${objects.length} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
+        parts.push(pdfObjectBytes(xref));
+        return new Blob([concatBytes(parts)], { type: 'application/pdf' });
+      }
+
+      function makePdfBlob() {
+        return buildImagePdf(createPdfPages(getDocumentModel()));
+      }
+
+      function outputFile(blob, filename, options = {}) {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.rel = 'noopener';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        if (options.openInNewTab && /MicroMessenger/i.test(navigator.userAgent)) {
+          const opened = window.open(url, '_blank', 'noopener');
+          if (!opened) showToast('PDF 已生成，请点击右上角“在浏览器中打开”后分享');
+        }
+        setTimeout(() => URL.revokeObjectURL(url), 30000);
+      }
+
+      async function shareFile(blob, filename, title, fallbackMessage) {
+        const file = new File([blob], filename, { type: blob.type });
+        const canShare = typeof navigator.share === 'function' && (!navigator.canShare || navigator.canShare({ files: [file] }));
+        if (canShare) {
+          try {
+            await navigator.share({ files: [file], title });
+            markExported();
+            showToast(`${title}已分享`);
+            return true;
+          } catch (error) {
+            if (error && error.name === 'AbortError') {
+              markExported();
+              outputFile(blob, filename, { openInNewTab: blob.type === 'application/pdf' });
+              showToast(`分享已取消，${title}已下载`);
+              return false;
+            }
+          }
+        }
+        markExported();
+        outputFile(blob, filename, { openInNewTab: blob.type === 'application/pdf' });
+        showToast(fallbackMessage);
+        return false;
+      }
+
+      async function exportPdf(share = false) {
         if (!$('previewModal').classList.contains('open') && !showPreview()) return;
-        activeData().exportedAt = new Date().toISOString();
-        saveState();
-        updateSummary();
-        setTimeout(() => window.print(), 80);
+        const blob = makePdfBlob();
+        const filename = exportFilename('pdf');
+        if (share) {
+          await shareFile(blob, filename, 'PDF 文件', 'PDF 已下载；微信内置浏览器请在系统浏览器中打开后分享');
+        } else {
+          markExported();
+          outputFile(blob, filename, { openInNewTab: true });
+          showToast('PDF 文件已开始下载');
+        }
       }
 
       function escapeXml(value) {
@@ -624,23 +855,17 @@
       }
 
       function buildDocxFiles() {
-        const form = activeForm();
-        const data = activeData();
+        const model = getDocumentModel();
         const widths = [560, 1500, 3275, 1500, 655, 655, 1215];
         const rows = [wordRow(['序号', '查检项目', '查检标准', '方法', '合格', '不合格', '备注'], widths, { header: true, centerColumns: [0, 4, 5] })];
-        form.items.forEach((item, index) => {
-          const row = data.items[index] || { result: '', remark: '' };
-          rows.push(wordRow([item.no, item.checkItem, item.standard, item.method, row.result === '合格' ? '✓' : '', row.result === '不合格' ? '✓' : '', row.remark || ''], widths, { centerColumns: [0, 4, 5] }));
+        model.rows.forEach(row => {
+          rows.push(wordRow([row.no, row.checkItem, row.standard, row.method, row.result === '合格' ? '✓' : '', row.result === '不合格' ? '✓' : '', row.remark || ''], widths, { centerColumns: [0, 4, 5] }));
         });
-        const passed = data.items.filter(item => item.result === '合格').length;
-        const complete = data.items.every(isAnswered);
-        const rate = complete ? `${passed}/${form.items.length}×100% = ${((passed / form.items.length) * 100).toFixed(1).replace(/\.0$/, '')}%` : '待完成';
         const body = [
-          wordPara(wordRun(form.title, { bold: true, size: 28 }), 'center', { spacing: '160' }),
+          wordPara(wordRun(model.title, { bold: true, size: 28 }), 'center', { spacing: '160' }),
           wordTable(rows, widths),
-          wordPara(`${wordRun(`查检人：${data.inspector || ''}`, { size: 18 })}${wordRun('    ', { size: 18 })}${wordRun(`查检日期：${data.checkDate || ''}`, { size: 18 })}${wordRun('    ', { size: 18 })}${wordRun(`护士长复核：${data.reviewer || ''}`, { size: 18 })}`, 'left', { spacing: '80' }),
-          wordPara(wordRun(`合格率=合格项目数/总检查项目数×100% = ${rate}`, { size: 18 }), 'left', { spacing: '80' }),
-          wordPara(wordRun(VERSION_LABEL, { size: 16, color: '666666' }), 'right', { spacing: '0' }),
+          wordPara(`${wordRun(`查检人：${model.inspector}`, { size: 18 })}${wordRun('    ', { size: 18 })}${wordRun(`查检日期：${model.checkDate}`, { size: 18 })}${wordRun('    ', { size: 18 })}${wordRun(`护士长复核：${model.reviewer}`, { size: 18 })}`, 'left', { spacing: '80' }),
+          wordPara(wordRun(`合格率=合格项目数/总检查项目数×100% = ${model.rateText}`, { size: 18 }), 'left', { spacing: '80' }),
           `<w:sectPr><w:footerReference w:type="default" r:id="rId3"/><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="850" w:right="850" w:bottom="850" w:left="850" w:header="425" w:footer="425" w:gutter="0"/><w:cols w:space="720"/></w:sectPr>`
         ].join('');
         const documentXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><w:body>${body}</w:body></w:document>`;
@@ -749,7 +974,12 @@
             showToast('Word 文档已分享');
             return;
           } catch (error) {
-            if (error && error.name === 'AbortError') return;
+            if (error && error.name === 'AbortError') {
+              markExported();
+              triggerDownload(blob, filename);
+              showToast('分享已取消，已下载 Word');
+              return;
+            }
           }
         }
         markExported();
@@ -773,13 +1003,14 @@
       loadState(); renderSelect(); renderForm(); bindBasicFields();
       $('saveBtn').addEventListener('click', () => saveState(true));
       $('previewBtn').addEventListener('click', showPreview);
-      $('pdfBtn').addEventListener('click', printPdf);
+      $('pdfBtn').addEventListener('click', () => exportPdf(false));
+      $('sharePdfBtn').addEventListener('click', () => exportPdf(true));
       $('wordBtn').addEventListener('click', downloadDocx);
       $('shareWordBtn').addEventListener('click', shareWord);
       $('clearBtn').addEventListener('click', clearCurrent);
       $('closePreviewBtn').addEventListener('click', closePreview);
       $('backEditBtn').addEventListener('click', closePreview);
-      $('previewPdfBtn').addEventListener('click', printPdf);
+      $('previewPdfBtn').addEventListener('click', () => exportPdf(false));
       $('previewWordBtn').addEventListener('click', downloadDocx);
       $('previewModal').addEventListener('click', event => { if (event.target === $('previewModal')) closePreview(); });
       document.addEventListener('keydown', event => { if (event.key === 'Escape' && $('previewModal').classList.contains('open')) closePreview(); });
